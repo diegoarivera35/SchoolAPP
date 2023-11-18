@@ -1,0 +1,21 @@
+﻿@model SchoolAPP.Models.Teacher
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+
+
+
+
+
+<h2>Season</h2>
+<p>The season is @Model.TeacherName !</p>
+<figure>
+    <figcaption class="photographer">
+        <a href="@Model.ImageURL">Photo By : @Model.PhotographerName</a>
+    </figcaption>
+    <figcaption class="temp">@Model.Temperature &#8451;</figcaption>
+    <img src="@url" alt="@Model.SeasonName" />
+</figure>

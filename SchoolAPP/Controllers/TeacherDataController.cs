@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -25,7 +26,7 @@ namespace SchoolAPP.Controllers
         /// A list of authors (first names and last names)
         /// </returns>
         [HttpGet]
-        public IEnumerable<string> ListTeachers()
+        public IEnumerable<Teacher> ListTeachers()
         {
             //Create an instance of a connection
             MySqlConnection Conn = School.AccessDatabase();
@@ -43,22 +44,34 @@ namespace SchoolAPP.Controllers
             MySqlDataReader ResultSet = cmd.ExecuteReader();
 
             //Create an empty list of Author Names
-            List<String> TeacherNames = new List<string> { };
+            List<Teacher> Teachers = new List<Teacher>{};
 
             //Loop Through Each Row the Result Set
             while (ResultSet.Read())
             {
                 //Access Column information by the DB column name as an index
-                string TeacherName = ResultSet["teacherfname"] + " " + ResultSet["teacherlname"];
+                int Teacherid = (int)ResultSet["teacherid"];
+                string Teacherfname = (string)ResultSet["teacherfname"];
+                string Teacherlname = (string)ResultSet["teacherlname"];
+                DateTime Hiredate = (DateTime)ResultSet["hiredate"];
+                decimal Salary = (decimal)ResultSet["salary"];
+
+                Teacher NewTeacher = new Teacher();
+                NewTeacher.Teacherid = Teacherid;
+                NewTeacher.Teacherfname = Teacherfname;
+                NewTeacher.Teacherlname = Teacherlname;
+                NewTeacher.Hiredate = Hiredate;
+                NewTeacher.Salary = Salary;
+
                 //Add the Author Name to the List
-                TeacherNames.Add(TeacherName);
+                Teachers.Add(NewTeacher);
             }
 
             //Close the connection between the MySQL Database and the WebServer
             Conn.Close();
 
             //Return the final list of author names
-            return TeacherNames;
+            return Teachers;
         }
 
 
