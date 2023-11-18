@@ -74,6 +74,46 @@ namespace SchoolAPP.Controllers
             return Teachers;
         }
 
+        [HttpGet]
+        public Teacher FindTeacher(int id)
+        {
+            Teacher NewTeacher = new Teacher();
+
+            //Create an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Open the connection between the web server and database
+            Conn.Open();
+
+            //Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL QUERY
+            cmd.CommandText = "Select * from Teachers where teacherid = "+id;
+
+            //Gather Result Set of Query into a variable
+            MySqlDataReader ResultSet = cmd.ExecuteReader();
+
+
+            while (ResultSet.Read())
+            {
+                //Access Column information by the DB column name as an index
+                int Teacherid = (int)ResultSet["teacherid"];
+                string Teacherfname = (string)ResultSet["teacherfname"];
+                string Teacherlname = (string)ResultSet["teacherlname"];
+                DateTime Hiredate = (DateTime)ResultSet["hiredate"];
+                decimal Salary = (decimal)ResultSet["salary"];
+
+                NewTeacher.Teacherid = Teacherid;
+                NewTeacher.Teacherfname = Teacherfname;
+                NewTeacher.Teacherlname = Teacherlname;
+                NewTeacher.Hiredate = Hiredate;
+                NewTeacher.Salary = Salary;
+            }
+
+            return NewTeacher;
+        }
+
 
     }
 }
