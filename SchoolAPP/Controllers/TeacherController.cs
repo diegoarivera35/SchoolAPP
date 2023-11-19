@@ -30,9 +30,16 @@ namespace SchoolAPP.Controllers
         public ActionResult Show(int id) 
         {
 
-            Teacher NewTeacher = new Teacher();
-            NewTeacher.Teacherfname = "Diego";
-            NewTeacher.Teacherlname = "Rivera";
+            TeacherDataController controller = new TeacherDataController();
+            Teacher NewTeacher = controller.FindTeacher(id);
+
+
+
+            //Teacher NewTeacher = new Teacher();
+            //NewTeacher.Teacherfname = "Diego";
+            //NewTeacher.Teacherlname = "Rivera";
+
+
             return View(NewTeacher); 
         }
     }
