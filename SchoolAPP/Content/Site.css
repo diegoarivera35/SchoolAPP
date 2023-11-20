@@ -12,3 +12,8 @@ textarea {
     max-width: 280px;
 }
 
+
+main {
+    background-color: grey;
+    height: 100vh;
+}
