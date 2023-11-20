@@ -1,0 +1,23 @@
+﻿@model IEnumerable<SchoolAPP.Models.Class>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List of Classes</h2>
+
+
+<form action="/Class/List" method="get">
+    <input type="text" name="SearchKey" />
+    <input type="submit" value="Search" />
+
+
+</form>
+
+
+
+@foreach (var Class in Model)
+{
+
+    <div><a href="/Class/Show/@Class.Classid">@Class.Classname @Class.Classcode</a></div>
+
+}
