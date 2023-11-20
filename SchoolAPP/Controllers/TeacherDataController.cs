@@ -17,13 +17,13 @@ namespace SchoolAPP.Controllers
         // The database context class which allows us to access our MySQL Database.
         private SchoolDbContext School = new SchoolDbContext();
 
-        //This Controller Will access the authors table of our blog database.
+        //This Controller Will access the teachers table of our school database.
         /// <summary>
-        /// Returns a list of Authors in the system
+        /// Returns a list of Teachers in the system
         /// </summary>
-        /// <example>GET api/AuthorData/ListAuthors</example>
+        /// <example>GET api/TeacherData/ListTeachers</example>
         /// <returns>
-        /// A list of authors (first names and last names)
+        /// A list of teachers (first names and last names)
         /// </returns>
         [HttpGet]
         [Route("api/TeacherData/ListTeachers/{SearchKey?}")]
@@ -68,7 +68,7 @@ namespace SchoolAPP.Controllers
                 NewTeacher.Hiredate = Hiredate;
                 NewTeacher.Salary = Salary;
 
-                //Add the Author Name to the List
+                //Add the Teacher Name to the List
                 Teachers.Add(NewTeacher);
             }
 
