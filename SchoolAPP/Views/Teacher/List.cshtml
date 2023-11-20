@@ -5,9 +5,19 @@
 
 <h2>List of Teachers</h2>
 
+
+<form action="/Teacher/List" method="get">
+    <input type="text" name="SearchKey" />
+    <input type="submit" value="Search"/>
+
+
+</form>
+
+
+
 @foreach(var teacher in Model){
 
-    <div><a href="#">@teacher.Teacherfname @teacher.Teacherlname</a></div>
+    <div><a href="/Teacher/Show/@teacher.Teacherid">@teacher.Teacherfname @teacher.Teacherlname</a></div>
 
  }
 
