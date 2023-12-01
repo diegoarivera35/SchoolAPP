@@ -23,7 +23,7 @@ namespace SchoolAPP.Controllers
         /// </summary>
         /// <example>GET api/ClassData/ListClasses</example>
         /// <returns>
-        /// A list of Classes (first names and last names)
+        /// A list of Classes (Class objects)
         /// </returns>
         [HttpGet]
         [Route("api/ClassData/ListClasses/{SearchKey?}")]
@@ -39,7 +39,7 @@ namespace SchoolAPP.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //SQL QUERY
-            cmd.CommandText = "Select * from Classes where lower(Classname) like lower(@key) or lower(Classcode) like lower(@key) or Classid like @key";
+            cmd.CommandText = "Select * from Classes where lower(Classname) like lower(@key) or lower(Classcode) like lower(@key) or Classid like @key or Teacherid like @key";
 
 
             cmd.Parameters.AddWithValue("@key", "%" + SearchKey + "%");
@@ -58,13 +58,19 @@ namespace SchoolAPP.Controllers
                 int Classid = (int)ResultSet["Classid"];
                 string Classname = (string)ResultSet["Classname"];
                 string Classcode = (string)ResultSet["Classcode"];
+                long Teacherid = Convert.ToInt64(ResultSet["Teacherid"]);
+                DateTime Startdate = (DateTime)ResultSet["Startdate"];
+                DateTime Finishdate = (DateTime)ResultSet["Finishdate"];
 
                 Class NewClass = new Class();
                 NewClass.Classid = Classid;
                 NewClass.Classname = Classname;
                 NewClass.Classcode = Classcode;
+                NewClass.Teacherid = Teacherid;
+                NewClass.Startdate = Startdate;
+                NewClass.Finishdate = Finishdate;
 
-  
+
 
                 //Add the Class Name to the List
                 Classes.Add(NewClass);
@@ -104,10 +110,16 @@ namespace SchoolAPP.Controllers
                 int Classid = (int)ResultSet["Classid"];
                 string Classname = (string)ResultSet["Classname"];
                 string Classcode = (string)ResultSet["Classcode"];
+                long Teacherid = ResultSet.GetInt64(ResultSet.GetOrdinal("Teacherid"));
+                DateTime Startdate = (DateTime)ResultSet["Startdate"];
+                DateTime Finishdate = (DateTime)ResultSet["Finishdate"];
 
                 NewClass.Classid = Classid;
                 NewClass.Classname = Classname;
                 NewClass.Classcode = Classcode;
+                NewClass.Teacherid = Teacherid;
+                NewClass.Startdate = Startdate;
+                NewClass.Finishdate = Finishdate;
             }
 
             return NewClass;

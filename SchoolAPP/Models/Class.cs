@@ -12,6 +12,9 @@ namespace SchoolAPP.Models
         public int Classid;
         public string Classname;
         public string Classcode;
+        public long Teacherid;
+        public DateTime Startdate;
+        public DateTime Finishdate;
 
 
 
