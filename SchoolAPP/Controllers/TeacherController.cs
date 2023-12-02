@@ -75,8 +75,17 @@ namespace SchoolAPP.Controllers
 
         //POST: /Teacher/Create
         [HttpPost]
-        public ActionResult Create()
+        public ActionResult Create(string TeacherFname, string TeacherLname, decimal Salary)
         {
+
+            Teacher NewTeacher = new Teacher();
+            NewTeacher.Teacherfname = TeacherFname;
+            NewTeacher.Teacherlname = TeacherLname;
+            NewTeacher.Salary = Salary;
+
+            TeacherDataController controller = new TeacherDataController();
+            controller.AddTeacher(NewTeacher);
+
             return RedirectToAction("List");
         }
 

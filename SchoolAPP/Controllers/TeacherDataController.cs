@@ -148,6 +148,32 @@ namespace SchoolAPP.Controllers
 
         }
 
+        [HttpPost]
+        public void AddTeacher(Teacher NewTeacher)
+        {
+            //Create an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Open the connection between the web server and database
+            Conn.Open();
+
+            //Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL QUERY
+            cmd.CommandText = "insert into teachers (teacherfname, teacherlname, salary) values (@TeacherFname,@TeacherLname,@Salary)";
+            cmd.Parameters.AddWithValue("@TeacherFname", NewTeacher.Teacherfname);
+            cmd.Parameters.AddWithValue("@TeacherLname", NewTeacher.Teacherlname);
+            cmd.Parameters.AddWithValue("@Salary", NewTeacher.Salary);
+
+
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
+        }
+
 
 
     }
