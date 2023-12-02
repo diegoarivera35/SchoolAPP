@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SchoolAPP.Models;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SchoolAPP.Controllers
 {
@@ -74,15 +75,25 @@ namespace SchoolAPP.Controllers
             return View();
         }
 
+        public string errorMessage = "";
         //POST: /Teacher/Create
         [HttpPost]
         public ActionResult Create(string TeacherFname, string TeacherLname, decimal Salary)
         {
-
+            
             Teacher NewTeacher = new Teacher();
             NewTeacher.Teacherfname = TeacherFname;
             NewTeacher.Teacherlname = TeacherLname;
             NewTeacher.Salary = Salary;
+
+            // Check for empty strings or zero salary
+            if (string.IsNullOrWhiteSpace(NewTeacher.Teacherfname) ||
+                string.IsNullOrWhiteSpace(NewTeacher.Teacherlname) ||
+                NewTeacher.Salary == 0)
+            {
+                errorMessage = "All fields are required";
+                return Content(errorMessage);
+            }
 
             TeacherDataController controller = new TeacherDataController();
             controller.AddTeacher(NewTeacher);
