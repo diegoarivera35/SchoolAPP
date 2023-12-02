@@ -58,14 +58,12 @@ namespace SchoolAPP.Controllers
                 int Teacherid = (int)ResultSet["teacherid"];
                 string Teacherfname = (string)ResultSet["teacherfname"];
                 string Teacherlname = (string)ResultSet["teacherlname"];
-                DateTime Hiredate = (DateTime)ResultSet["hiredate"];
                 decimal Salary = (decimal)ResultSet["salary"];
 
                 Teacher NewTeacher = new Teacher();
                 NewTeacher.Teacherid = Teacherid;
                 NewTeacher.Teacherfname = Teacherfname;
                 NewTeacher.Teacherlname = Teacherlname;
-                NewTeacher.Hiredate = Hiredate;
                 NewTeacher.Salary = Salary;
 
                 //Add the Teacher Name to the List
@@ -161,7 +159,7 @@ namespace SchoolAPP.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //SQL QUERY
-            cmd.CommandText = "insert into teachers (teacherfname, teacherlname, salary) values (@TeacherFname,@TeacherLname,@Salary)";
+            cmd.CommandText = "insert into teachers (teacherfname, teacherlname, hiredate, salary) values (@TeacherFname,@TeacherLname,CURRENT_DATE(),@Salary)";
             cmd.Parameters.AddWithValue("@TeacherFname", NewTeacher.Teacherfname);
             cmd.Parameters.AddWithValue("@TeacherLname", NewTeacher.Teacherlname);
             cmd.Parameters.AddWithValue("@Salary", NewTeacher.Salary);
