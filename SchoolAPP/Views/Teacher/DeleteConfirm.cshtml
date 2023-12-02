@@ -1,0 +1,16 @@
+﻿@model SchoolAPP.Models.Teacher
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<a class="btn btn-primary btn-md" href="/Teacher/Show/@Model.Teacherid">Cancel</a>
+
+
+<form method="post" action="/Teacher/Delete/@Model.Teacherid">
+    <a class="btn btn-danger btn-md" href="/Teacher/DeleteConfirm/@Model.Teacherid">Delete</a>
+</form>
+
+
+<h2>Are you sure you want to delete @Model.Teacherfname? @Model.Teacherlname</h2>
+<p>*WARNING: THIS ACTION CANNOT BE UNDONE!*</p>
+

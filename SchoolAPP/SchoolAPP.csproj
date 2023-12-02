@@ -289,6 +289,8 @@
     <Content Include="Views\Teacher\List.cshtml" />
     <Content Include="Views\Class\List.cshtml" />
     <Content Include="Views\Class\Show.cshtml" />
+    <Content Include="Views\Teacher\DeleteConfirm.cshtml" />
+    <Content Include="Views\Teacher\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
