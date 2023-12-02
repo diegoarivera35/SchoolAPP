@@ -56,7 +56,8 @@ namespace SchoolAPP.Controllers
         }
 
 
-        //GET: /Teacher/Delete/{id}
+        //POST: /Teacher/Delete/{id}
+        [HttpPost]
         public ActionResult Delete(int id)
         {
 

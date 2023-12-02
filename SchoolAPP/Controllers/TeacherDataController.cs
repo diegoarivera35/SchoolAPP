@@ -117,9 +117,9 @@ namespace SchoolAPP.Controllers
             return NewTeacher;
         }
         /// <summary>
-        /// 
+        /// Deletes an Teacher from the connected MySQL Database if the ID of that teacher exists. Does NOT maintain relational integrity. Non-Deterministic.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The id of the teacher</param>
         /// <example>POST : /api/TeacherData/DeleteTeacher/3</example>
 
         [HttpPost]
@@ -146,6 +146,21 @@ namespace SchoolAPP.Controllers
 
         }
 
+
+
+        /// <summary>
+        /// Adds an Teacher to the MySQL Database.
+        /// </summary>
+        /// <param name="NewTeacher">An object with fields that map to the columns of the teacher's table. Non-Deterministic.</param>
+        /// <example>
+        /// POST api/TeacherData/AddTeacher 
+        /// FORM DATA / POST DATA / REQUEST BODY 
+        /// {
+        ///	"TeacherFname":"Diego",
+        ///	"TeacherLname":"Rivera",
+        ///	"Salary":"5.50"
+        /// }
+        /// </example>
         [HttpPost]
         public void AddTeacher(Teacher NewTeacher)
         {
