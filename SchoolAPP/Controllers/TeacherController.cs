@@ -78,7 +78,7 @@ namespace SchoolAPP.Controllers
         public string errorMessage = "";
         //POST: /Teacher/Create
         [HttpPost]
-        public ActionResult Create(string TeacherFname, string TeacherLname, decimal Salary)
+        public ActionResult Create(string TeacherFname, string TeacherLname, decimal? Salary)
         {
             
             Teacher NewTeacher = new Teacher();
@@ -89,9 +89,10 @@ namespace SchoolAPP.Controllers
             // Check for empty strings or zero salary
             if (string.IsNullOrWhiteSpace(NewTeacher.Teacherfname) ||
                 string.IsNullOrWhiteSpace(NewTeacher.Teacherlname) ||
-                NewTeacher.Salary == 0)
+                NewTeacher.Salary == null)
             {
-                errorMessage = "All fields are required";
+                errorMessage = "**All fields are required**";
+                Console.WriteLine(NewTeacher.Salary);
                 return Content(errorMessage);
             }
 

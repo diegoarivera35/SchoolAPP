@@ -13,7 +13,7 @@ namespace SchoolAPP.Models
         public string Teacherfname;
         public string Teacherlname;
         public DateTime Hiredate;
-        public decimal Salary;
+        public decimal? Salary;
 
 
 
