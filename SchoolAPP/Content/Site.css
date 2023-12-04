@@ -13,7 +13,28 @@ textarea {
 }
 
 
+body {
+    background-color: #c4c4c4;
+}
+
+
 main {
-    background-color: grey;
     height: 100vh;
+}
+
+label {
+    min-width: 152px;
+}
+
+
+button [type=button] {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 5px 20px;
+    margin: 20px 0px;
+}
+
+.btn {
+    margin: 20px 0px;
 }
