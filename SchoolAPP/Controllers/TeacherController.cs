@@ -75,7 +75,7 @@ namespace SchoolAPP.Controllers
             return View();
         }
 
-        public string errorMessage = "";
+        //public string errorMessage = ""; -> var use to store message display by if validator in action create
         //POST: /Teacher/Create
         [HttpPost]
         public ActionResult Create(string TeacherFname, string TeacherLname, decimal? Salary)
@@ -86,14 +86,14 @@ namespace SchoolAPP.Controllers
             NewTeacher.Teacherlname = TeacherLname;
             NewTeacher.Salary = Salary;
 
-            // Check for empty strings or zero salary
+            // Check for empty strings or null salary
             if (string.IsNullOrWhiteSpace(NewTeacher.Teacherfname) ||
                 string.IsNullOrWhiteSpace(NewTeacher.Teacherlname) ||
                 NewTeacher.Salary == null)
             {
-                errorMessage = "**All fields are required**";
-                Console.WriteLine(NewTeacher.Salary);
-                return Content(errorMessage);
+
+                //errorMessage = "**All fields are required**"; ->  message to test if validator is working
+                return View("MissingFields");
             }
 
             TeacherDataController controller = new TeacherDataController();
