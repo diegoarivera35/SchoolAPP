@@ -93,13 +93,53 @@ namespace SchoolAPP.Controllers
             {
 
                 //errorMessage = "**All fields are required**"; ->  message to test if validator is working
-                return View("MissingFields");
+                return View(NewTeacher);
             }
 
             TeacherDataController controller = new TeacherDataController();
             controller.AddTeacher(NewTeacher);
 
             return RedirectToAction("List");
+        }
+
+
+        //GET : /Teacher/Edit/{id}
+        //route to /Views/Teacher/Edit.cshtml
+
+        public ActionResult Edit(int id)
+        {
+            TeacherDataController Controller = new TeacherDataController();
+
+            Teacher SelectedTeacher = Controller.FindTeacher(id);
+
+            return View(SelectedTeacher);
+        }
+
+
+        //POST : /Teacher/Update/{id}
+        //call the database action to the teacher resource
+        //redirect to the teacher show page
+
+        [HttpPost]
+
+        public ActionResult Update(int id, string TeacherFname, string TeacherLname, decimal Salary)
+        {
+
+
+            Teacher TeacherInfo = new Teacher();
+            TeacherInfo.Teacherfname = TeacherFname;
+            TeacherInfo.Teacherlname = TeacherLname;
+            TeacherInfo.Salary = Salary;
+
+
+            TeacherDataController Controller = new TeacherDataController();
+
+
+            // update the theacher in the system
+            TeacherDataController controller = new TeacherDataController();
+            controller.UpdateTeacher(id, TeacherInfo);
+
+            return RedirectToAction("Show/" + id);
         }
 
 

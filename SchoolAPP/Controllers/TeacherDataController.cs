@@ -27,7 +27,7 @@ namespace SchoolAPP.Controllers
         /// </returns>
         [HttpGet]
         [Route("api/TeacherData/ListTeachers/{SearchKey?}")]
-        public IEnumerable<Teacher> ListTeachers(string SearchKey=null)
+        public IEnumerable<Teacher> ListTeachers(string SearchKey = null)
         {
             //Create an instance of a connection
             MySqlConnection Conn = School.AccessDatabase();
@@ -49,7 +49,7 @@ namespace SchoolAPP.Controllers
             MySqlDataReader ResultSet = cmd.ExecuteReader();
 
             //Create an empty list of Author Names
-            List<Teacher> Teachers = new List<Teacher>{};
+            List<Teacher> Teachers = new List<Teacher> { };
 
             //Loop Through Each Row the Result Set
             while (ResultSet.Read())
@@ -92,7 +92,7 @@ namespace SchoolAPP.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //SQL QUERY
-            cmd.CommandText = "Select * from Teachers where teacherid = "+id;
+            cmd.CommandText = "Select * from Teachers where teacherid = " + id;
 
             //Gather Result Set of Query into a variable
             MySqlDataReader ResultSet = cmd.ExecuteReader();
@@ -142,7 +142,7 @@ namespace SchoolAPP.Controllers
             cmd.ExecuteNonQuery();
 
             Conn.Close();
- 
+
 
         }
 
@@ -183,6 +183,50 @@ namespace SchoolAPP.Controllers
             cmd.Prepare();
 
             cmd.ExecuteNonQuery();
+
+            Conn.Close();
+        }
+
+
+        /// <summary>
+        /// reveives a Teacher id and teacher Payload,
+        /// updates the teacher with that id in the database with the payload information
+        /// </summary>
+        /// <param name="Teacherid">the primary key to update</param>
+        /// <param name="UpdatedTeacher">the teacher object</param>
+        /// <example>
+        /// POST api/TeacherData/UpdateTeacher/{Teacherid}
+        /// POST DATA:
+        /// {
+        ///     "TeacherFname" : "Diego",
+        ///     "TeacherLname" : "Rivera",
+        ///     "Salary" : 45.50
+        /// }
+        /// </example>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("api/TeacherData/UpdateTeacher/{Teacherid}")]
+        public void UpdateTeacher(int Teacherid, [FromBody]Teacher TeacherInfo)
+        {
+            //SQL QUERY
+            string query = "update teachers set teacherfname=@TeacherFname, teacherlname=@TeacherLname, salary=@Salary where teacherid=@Teacherid";
+            //Create an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Open the connection between the web server and database
+            Conn.Open();
+
+            //Establish a new command (query) for our database
+            MySqlCommand Cmd = Conn.CreateCommand();
+
+            Cmd.CommandText = query;
+            Cmd.Parameters.AddWithValue("@TeacherFname", TeacherInfo.Teacherfname);
+            Cmd.Parameters.AddWithValue("@TeacherLname", TeacherInfo.Teacherlname);
+            Cmd.Parameters.AddWithValue("@Salary", TeacherInfo.Salary);
+            Cmd.Parameters.AddWithValue("@Teacherid", Teacherid);
+
+
+            Cmd.ExecuteNonQuery();
 
             Conn.Close();
         }
